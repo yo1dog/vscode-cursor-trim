@@ -1,0 +1,60 @@
+{
+  "name": "cursor-trim",
+  "displayName": "Cursor Trim",
+  "description": "Trims whitespace around cursors.",
+  "version": "1.0.0",
+  "publisher": "yo1dog",
+  "engines": {
+    "vscode": "^1.15.0"
+  },
+  "license": "MIT",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:yo1dog.cursor-trim.trimCursor",
+    "onCommand:yo1dog.cursor-trim.lTrimCursor",
+    "onCommand:yo1dog.cursor-trim.rTrimCursor"
+  ],
+  "main": "./extension/extension.js",
+  "contributes": {
+    "commands": [{
+      "command": "yo1dog.cursor-trim.trimCursor",
+      "title": "Trim Whitespace Around Cursors"
+    }, {
+      "command": "yo1dog.cursor-trim.lTrimCursor",
+      "title": "Trim Whitespace Left of Cursors"
+    }, {
+      "command": "yo1dog.cursor-trim.rTrimCursor",
+      "title": "Trim Whitespace Right of Cursors"
+    }],
+    "keybindings": [{
+      "command": "yo1dog.cursor-trim.lTrimCursor",
+      "key": "alt+,",
+      "when": "editorTextFocus"
+    }, {
+      "command": "yo1dog.cursor-trim.rTrimCursor",
+      "key": "alt+.",
+      "when": "editorTextFocus"
+    }]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "eslint": "^4.5.0",
+    "mocha": "^3.5.0",
+    "vscode": "^1.1.5"
+  },
+  "dependencies": {},
+  "bugs": {
+    "url": "https://github.com/yo1dog/vscode-cursor-trim/issues",
+    "email": "mike@yo1.dog"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yo1dog/vscode-cursor-trim.git"
+  },
+  "homepage": "https://github.com/yo1dog/vscode-cursor-trim"
+}
