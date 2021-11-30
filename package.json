@@ -2,6 +2,7 @@
   "name": "cursor-trim",
   "displayName": "Cursor Trim",
   "description": "Trims whitespace around cursors.",
+  "icon": "img/icon.png",
   "version": "1.0.0",
   "publisher": "yo1dog",
   "engines": {
@@ -16,36 +17,42 @@
     "onCommand:yo1dog.cursor-trim.lTrimCursor",
     "onCommand:yo1dog.cursor-trim.rTrimCursor"
   ],
-  "main": "./extension/extension.js",
+  "main": "./extension.js",
+  "browser": "./extension.js",
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
   "contributes": {
-    "commands": [{
-      "command": "yo1dog.cursor-trim.trimCursor",
-      "title": "Trim Whitespace Around Cursors"
-    }, {
-      "command": "yo1dog.cursor-trim.lTrimCursor",
-      "title": "Trim Whitespace Left of Cursors"
-    }, {
-      "command": "yo1dog.cursor-trim.rTrimCursor",
-      "title": "Trim Whitespace Right of Cursors"
-    }],
-    "keybindings": [{
-      "command": "yo1dog.cursor-trim.lTrimCursor",
-      "key": "alt+,",
-      "when": "editorTextFocus"
-    }, {
-      "command": "yo1dog.cursor-trim.rTrimCursor",
-      "key": "alt+.",
-      "when": "editorTextFocus"
-    }]
-  },
-  "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test"
+    "commands": [
+      {
+        "command": "yo1dog.cursor-trim.trimCursor",
+        "title": "Trim Whitespace Around Cursors"
+      },
+      {
+        "command": "yo1dog.cursor-trim.lTrimCursor",
+        "title": "Trim Whitespace Left of Cursors"
+      },
+      {
+        "command": "yo1dog.cursor-trim.rTrimCursor",
+        "title": "Trim Whitespace Right of Cursors"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "yo1dog.cursor-trim.lTrimCursor",
+        "key": "alt+,",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "yo1dog.cursor-trim.rTrimCursor",
+        "key": "alt+.",
+        "when": "editorTextFocus"
+      }
+    ]
   },
   "devDependencies": {
-    "eslint": "^4.5.0",
-    "mocha": "^3.5.0",
-    "vscode": "^1.1.5"
+    "eslint": "^8.3.0"
   },
   "dependencies": {},
   "bugs": {

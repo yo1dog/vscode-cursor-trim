@@ -1,8 +1,4 @@
-const vscode                              = require('vscode');
-const normalizeDirection                  = require('./normalizeDirection');
-const getSelectionLeadingWhitespaceRange  = require('./getSelectionLeadingWhitespaceRange');
-const getSelectionTrailingWhitespaceRange = require('./getSelectionTrailingWhitespaceRange');
-const combineAllOverlapedRanges           = require('./combineAllOverlapedRanges');
+const vscode = require('vscode');
 
 
 /**
@@ -106,3 +102,116 @@ module.exports = {
   
   trimCursors
 };
+
+
+
+
+
+/**
+ * Normalizes a direction param to either -1, 0, or 1.
+ * @param {any} direction Direction param to normalize.
+ * @returns The direction normalized to -1, 0, or 1.
+ */
+function normalizeDirection(direction) {
+  if (typeof direction !== 'number') {
+    return 0;
+  }
+  if (direction === 0) {
+    return 0;
+  }
+  if (direction > 0) {
+    return 1;
+  }
+  return -1;
+}
+
+
+
+
+
+
+/**
+ * Gets the range of whitespace before the start of the given selection.
+ * @param {vscode.Document}  document  Document the selection is on.
+ * @param {vscode.Selection} selection Selection to use.
+ * @returns Range of the preceeding whitespace.
+ */
+function getSelectionLeadingWhitespaceRange(document, selection) {
+  const line = selection.start.line;
+  const lineStr = document.lineAt(line).text;
+  
+  const endChar = selection.start.character;
+  let startChar = endChar;
+  
+  while (startChar > 0 && lineStr[startChar - 1] === ' ' || lineStr[startChar - 1] === '\t') {
+    --startChar;
+  }
+  
+  return new vscode.Range(line, startChar, line, endChar);
+}
+
+
+
+
+
+/**
+ * Gets the range of whitespace after the end of the given selection.
+ * @param {vscode.Document}  document  Document the selection is on.
+ * @param {vscode.Selection} selection Selection to use.
+ * @returns Range of the proceeding whitespace.
+ */
+function getSelectionTrailingWhitespaceRange(document, selection) {
+  const line = selection.end.line;
+  const lineStr = document.lineAt(line).text;
+  
+  const startChar = selection.end.character;
+  let endChar = startChar;
+  
+  while (endChar < lineStr.length && lineStr[endChar] === ' ' || lineStr[endChar] === '\t') {
+    ++endChar;
+  }
+  
+  return new vscode.Range(line, startChar, line, endChar);
+}
+
+
+
+
+
+/**
+ * Combines all ranges that overlap.
+ * @param {vscode.Range[]} ranges List of ranges to combine if they overlap.
+ * @returns List of ranges with all overlapping ranges combined.
+ */
+function combineAllOverlapedRanges(ranges) {
+  const finalRanges = ranges.slice(0);
+  
+  for (let i = 0; i < finalRanges.length; ++i) {
+    for (let j = i + 1; j < finalRanges.length; ++j) {
+      const overlapedRange = combineOverlapedRanges(finalRanges[i], finalRanges[j]);
+      if (!overlapedRange) {
+        continue;
+      }
+      
+      finalRanges[i] = overlapedRange;
+      finalRanges.splice(j , 1);
+      --j;
+    }
+  }
+  
+  return finalRanges;
+}
+
+/**
+ * Combines the given ranges if they overlap.
+ * @param {vscode.Range} rangeA Frist range.
+ * @param {vscode.Range} rangeB Second range.
+ * @returns A range which is the union between the two ranges if they overlap or null.
+ */
+function combineOverlapedRanges(rangeA, rangeB) {
+  if (!rangeA.intersection(rangeB)) {
+    return null;
+  }
+  
+  return rangeA.union(rangeB);
+}
