@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.1.3] - 2023-07-12
+### Changed
+- Updated icon.
+
 ## [1.1.2] - 2023-07-12
 ### Changed
 - Updated icon.
@@ -20,5 +24,3 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## 1.0.0 - 2017-09-06
 ### Added
 - Inital Release
-
-[Unreleased]: https://github.com/yo1dog/vscode-cursor-trim/compare/v1.0.0...HEAD
