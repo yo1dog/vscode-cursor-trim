@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.1.4] - 2024-12-17
+### Changed
+- Remove uneeded images from vsix.
+
 ## [1.1.3] - 2024-12-17
 ### Changed
 - Updated icon.
